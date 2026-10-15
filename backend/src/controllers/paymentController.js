@@ -2,7 +2,7 @@
 const stripe = require('../config/stripe');
 const { pool } = require('../config/db');
 
-const FRONTEND_URL = process.env.CLIENT_URL || 'http://localhost:5173';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
 const createCheckoutSession = async (req, res) => {
   let connection;
@@ -354,4 +354,5 @@ module.exports = {
   verifyCheckoutSession,
    getAdminPayments,
 };
+
 
