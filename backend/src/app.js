@@ -40,6 +40,7 @@ app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
+  'https://mtechnrepairs.hostless.site',
 ];
 
 app.use(
