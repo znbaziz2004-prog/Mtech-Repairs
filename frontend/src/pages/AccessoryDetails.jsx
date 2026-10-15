@@ -85,7 +85,7 @@ export default function AccessoryDetails() {
   const imageUrl = accessory.image
     ? accessory.image.startsWith('http')
       ? accessory.image
-      : `http://localhost:5000${accessory.image}`
+      : `https://mtechnrepairs.hostless.app${accessory.image}`
     : '';
 
   return (

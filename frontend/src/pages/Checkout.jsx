@@ -252,7 +252,7 @@ if (!isValidUKPhone(phone)) {
                         src={
                           item.image.startsWith('http')
                             ? item.image
-                            : `http://localhost:5000${item.image}`
+                            : `https://mtechnrepairs.hostless.app${item.image}`
                         }
                         alt={item.name}
                       />

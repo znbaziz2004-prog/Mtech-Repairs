@@ -85,7 +85,7 @@ export default function ProductDetails() {
           <div className="product-details-image">
             {product.image ? (
               <img
-                src={`http://localhost:5000${product.image}`}
+                src={`https://mtechnrepairs.hostless.app${product.image}`}
                 alt={product.name}
               />
             ) : (

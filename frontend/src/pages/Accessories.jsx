@@ -92,7 +92,7 @@ export default function Accessories() {
                       src={
                         a.image.startsWith('http')
                           ? a.image
-                          : `http://localhost:5000${a.image}`
+                          : `https://mtechnrepairs.hostless.app${a.image}`
                       }
                       alt={a.name}
                     />
