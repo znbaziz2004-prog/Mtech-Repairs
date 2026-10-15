@@ -22,3 +22,10 @@ node_modules/
 coverage/
 *.log
 "@ | Set-Content -Path backend/.gitignore -Encoding utf8
+
+
+# Private database backups
+database/*.sql
+
+# Local project backups (certificate will be copied into backend/certs)
+Project Backups/
