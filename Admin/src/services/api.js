@@ -1,5 +1,5 @@
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "https://mtechnrepairs.hostless.app/api";
 
 const apiRequest = async (endpoint, options = {}) => {
   const token = localStorage.getItem("mtech_admin_token");
@@ -377,3 +377,4 @@ export const updateAdminNotifications = async (notifications) => {
 export const getAdminPayments = async () => {
   return apiRequest("/payments/admin");
 };
+
