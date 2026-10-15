@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mtech & Repairs Limited — Repair · Buy & Sell · Accessories</title>
+<meta name="description" content="Mtech & Repairs Limited — Level 3 & Level 4 professional mobile repairs, board-level microsoldering, buy & sell mobiles, accessories and fast diagnostics.">
+<link rel="icon" href="assets/images/logo.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a href="#top" class="brand">
+      <img src="assets/images/logo.jpeg" alt="Mtech & Repairs Limited logo" class="brand-logo">
+      <span class="brand-text">
+        <span class="brand-name">Mtech<span class="amp">&amp;</span>repairs</span>
+        <span class="brand-sub">LIMITED</span>
+      </span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="#services">Services</a>
+      <a href="#devices">Devices We Fix</a>
+      <a href="#why">Why Us</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="header-cta">
+      <a href="#contact" class="btn btn-primary">Book a Repair</a>
+    </div>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="circuit-bg" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow">Level 3 &amp; Level 4 Specialist</p>
+      <h1>Something wrong<br>with your <span class="highlight">device?</span></h1>
+      <p class="hero-lead">Board-level microsoldering, IC work and fast diagnostics — from a team that treats every repair like it's their own phone. Repair, buy &amp; sell, or stock up on accessories, all under one roof.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Book a Repair</a>
+        <a href="#services" class="btn btn-outline">Explore Services</a>
+      </div>
+      <ul class="hero-stats">
+        <li><strong>Fast</strong><span>Turnaround</span></li>
+        <li><strong>Accurate</strong><span>Diagnostics</span></li>
+        <li><strong>Reliable</strong><span>Repairs</span></li>
+      </ul>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <svg viewBox="0 0 420 460" class="repair-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a phone being repaired">
+        <!-- workbench -->
+        <rect x="20" y="400" width="380" height="10" rx="2" fill="#1a1a1a"/>
+        <!-- phone body -->
+        <g class="phone-group">
+          <rect x="150" y="120" width="140" height="270" rx="26" fill="#101010" stroke="#F2B01A" stroke-width="3"/>
+          <rect x="162" y="140" width="116" height="208" rx="10" fill="#161616"/>
+          <rect x="200" y="126" width="40" height="8" rx="4" fill="#2a2a2a"/>
+          <!-- screen circuit pattern, revealed as being worked on -->
+          <g class="circuit-lines" stroke="#F2B01A" stroke-width="2" fill="none" opacity="0.85">
+            <path d="M172 160 h30 v20 h20 v40" />
+            <path d="M268 170 h-22 v30 h-18 v20" />
+            <path d="M172 300 h24 v-30 h20" />
+            <circle cx="172" cy="160" r="3.5" fill="#F2B01A"/>
+            <circle cx="268" cy="170" r="3.5" fill="#F2B01A"/>
+            <circle cx="196" cy="330" r="3.5" fill="#F2B01A"/>
+            <circle cx="212" cy="270" r="3.5" fill="#F2B01A"/>
+          </g>
+          <!-- pulse heartbeat line across the screen -->
+          <polyline class="pulse-line" points="162,250 190,250 200,220 212,280 224,250 300,250" fill="none" stroke="#F2B01A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+
+        <!-- screwdriver / soldering tool animated -->
+        <g class="tool-group">
+          <rect x="-8" y="-8" width="16" height="90" rx="6" fill="#101010" stroke="#F2B01A" stroke-width="2"/>
+          <rect x="-8" y="74" width="16" height="16" rx="3" fill="#F2B01A"/>
+          <polygon points="-6,90 6,90 0,112" fill="#c9c9c9"/>
+        </g>
+
+        <!-- spark / sweat sparks at contact point -->
+        <g class="spark-group" fill="#F2B01A">
+          <polygon class="spark s1" points="0,-6 3,0 0,6 -3,0"/>
+          <polygon class="spark s2" points="0,-5 2.4,0 0,5 -2.4,0"/>
+          <polygon class="spark s3" points="0,-4 2,0 0,4 -2,0"/>
+        </g>
+
+        <!-- floating loose screws -->
+        <circle class="screw s-a" cx="90" cy="220" r="6" fill="none" stroke="#F2B01A" stroke-width="2"/>
+        <circle class="screw s-b" cx="340" cy="300" r="5" fill="none" stroke="#F2B01A" stroke-width="2"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES / CATEGORIES ============ -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">What we do</p>
+      <h2>Repair. Buy &amp; Sell. Accessories.</h2>
+      <p class="section-lead">Four ways we keep you connected — pick what you need below.</p>
+    </div>
+
+    <div class="service-grid">
+
+      <article class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="26" stroke="#F2B01A" stroke-width="3"/>
+            <path d="M32 16v6M32 42v6M16 32h6M42 32h6M21 21l4 4M43 43l-4-4M43 21l-4 4M21 43l4-4" stroke="#F2B01A" stroke-width="3" stroke-linecap="round"/>
+            <rect x="27" y="27" width="10" height="10" rx="2" fill="#101010" stroke="#F2B01A" stroke-width="2"/>
+          </svg>
+        </div>
+        <span class="service-tag">Level 3 &amp; Level 4</span>
+        <h3>Professional Mobile Repairs</h3>
+        <p>Board level repairs, microsoldering and IC work carried out by trained technicians on precision equipment.</p>
+        <p class="service-meta">Board Level · Microsoldering · IC Work</p>
+      </article>
+
+      <article class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="18" width="18" height="30" rx="4" stroke="#F2B01A" stroke-width="3"/>
+            <rect x="36" y="14" width="18" height="30" rx="4" stroke="#F2B01A" stroke-width="3"/>
+            <path d="M28 26c4-6 10-6 14 0M36 36c-4 6-10 6-14 0" stroke="#F2B01A" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="service-tag">New · Used · Refurbished</span>
+        <h3>Buy &amp; Sell Mobiles</h3>
+        <p>Trade in your old device or pick up a quality used, new or refurbished phone at a fair price.</p>
+        <p class="service-meta">Free valuation · Same-day payment</p>
+      </article>
+
+      <article class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="12" y="14" width="14" height="18" rx="2" stroke="#F2B01A" stroke-width="3"/>
+            <path d="M19 32v6M14 18h10M17 44l5-4-1 6 5-3" stroke="#F2B01A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M36 20c3-3 9-3 9 3s-6 5-6 9" stroke="#F2B01A" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="39" cy="40" r="3" fill="#F2B01A"/>
+          </svg>
+        </div>
+        <span class="service-tag">Chargers · Cables · Cases</span>
+        <h3>Accessories</h3>
+        <p>Chargers, cables, cases, screen protectors and more — genuine and compatible parts in stock.</p>
+        <p class="service-meta">Screen Protectors · Earbuds · More</p>
+      </article>
+
+      <article class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="18" y="10" width="20" height="34" rx="4" stroke="#F2B01A" stroke-width="3"/>
+            <polyline points="22,28 28,28 31,20 35,34 38,28 42,28" fill="none" stroke="#F2B01A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="42" cy="42" r="8" stroke="#F2B01A" stroke-width="3"/>
+            <line x1="48" y1="48" x2="54" y2="54" stroke="#F2B01A" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="service-tag">Fast · Accurate · Reliable</span>
+        <h3>Diagnostics &amp; Solutions</h3>
+        <p>Not sure what's wrong? Our full diagnostic check pinpoints the issue before any work begins.</p>
+        <p class="service-meta">Free diagnostic with repair</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEVICES WE FIX ============ -->
+<section class="devices" id="devices">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Choose your device</p>
+      <h2>What are we fixing today?</h2>
+      <p class="section-lead">Select your device to see the repair services we offer for it.</p>
+    </div>
+
+    <div class="device-grid">
+      <a href="#contact" class="device-card">
+        <svg viewBox="0 0 48 48" fill="none"><rect x="14" y="6" width="20" height="36" rx="4" stroke="#101010" stroke-width="2.5"/><line x1="20" y1="12" x2="28" y2="12" stroke="#101010" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <span>Mobile Phone</span>
+      </a>
+      <a href="#contact" class="device-card">
+        <svg viewBox="0 0 48 48" fill="none"><rect x="8" y="10" width="32" height="28" rx="3" stroke="#101010" stroke-width="2.5"/><circle cx="24" cy="34" r="1.6" fill="#101010"/></svg>
+        <span>Tablet / iPad</span>
+      </a>
+      <a href="#contact" class="device-card">
+        <svg viewBox="0 0 48 48" fill="none"><rect x="8" y="10" width="32" height="20" rx="2" stroke="#101010" stroke-width="2.5"/><path d="M6 34h36l-3 6H9l-3-6z" stroke="#101010" stroke-width="2.5" stroke-linejoin="round"/></svg>
+        <span>Laptop / MacBook</span>
+      </a>
+      <a href="#contact" class="device-card">
+        <svg viewBox="0 0 48 48" fill="none"><rect x="15" y="6" width="18" height="18" rx="4" stroke="#101010" stroke-width="2.5"/><path d="M18 24v8a6 6 0 0 0 12 0v-8" stroke="#101010" stroke-width="2.5"/></svg>
+        <span>Smartwatch</span>
+      </a>
+      <a href="#contact" class="device-card">
+        <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="16" width="36" height="20" rx="3" stroke="#101010" stroke-width="2.5"/><circle cx="24" cy="26" r="4" stroke="#101010" stroke-width="2.5"/></svg>
+        <span>PC / Desktop</span>
+      </a>
+      <a href="#contact" class="device-card">
+        <svg viewBox="0 0 48 48" fill="none"><rect x="6" y="18" width="36" height="14" rx="6" stroke="#101010" stroke-width="2.5"/><circle cx="16" cy="25" r="2" fill="#101010"/><circle cx="32" cy="21" r="2" fill="#101010"/><circle cx="36" cy="29" r="2" fill="#101010"/></svg>
+        <span>Gaming Console</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY CHOOSE US ============ -->
+<section class="why" id="why">
+  <div class="circuit-bg dark" aria-hidden="true"></div>
+  <div class="container">
+    <div class="section-head light">
+      <p class="eyebrow">Why choose us</p>
+      <h2>Your trusted mobile technology partner</h2>
+      <p class="section-lead">A proven track record working with individuals, students and businesses across the region.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-item"><strong>Fast</strong><span>Repair</span></div>
+      <div class="why-item"><strong>Low Price</strong><span>Promise</span></div>
+      <div class="why-item"><strong>Quality</strong><span>Parts</span></div>
+      <div class="why-item"><strong>Qualified</strong><span>Technicians</span></div>
+      <div class="why-item"><strong>Level 3&amp;4</strong><span>Specialist</span></div>
+      <div class="why-item"><strong>Lifetime</strong><span>Warranty</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Customer stories</p>
+      <h2>What our customers say</h2>
+    </div>
+
+    <div class="testimonial-track">
+      <article class="testimonial-card">
+        <p>&ldquo;My phone was repaired in under an hour. The team explained exactly what was wrong before touching anything.&rdquo;</p>
+        <footer><strong>Ayesha K.</strong><span>Small Business Owner</span></footer>
+      </article>
+      <article class="testimonial-card">
+        <p>&ldquo;Fixed a water-damaged board others said was unrepairable. The microsoldering work is genuinely next level.&rdquo;</p>
+        <footer><strong>Bilal S.</strong><span>University Student</span></footer>
+      </article>
+      <article class="testimonial-card">
+        <p>&ldquo;We use them for all our office devices now. Reliable, fast, and the pricing is always fair.&rdquo;</p>
+        <footer><strong>Hamza R.</strong><span>IT Manager</span></footer>
+      </article>
+      <article class="testimonial-card">
+        <p>&ldquo;Sold my old phone and bought a refurbished upgrade the same afternoon. Smooth process from start to end.&rdquo;</p>
+        <footer><strong>Sana M.</strong><span>Freelancer</span></footer>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT / CTA ============ -->
+<section class="contact" id="contact">
+  <div class="container contact-inner">
+    <div class="contact-copy">
+      <p class="eyebrow">Get in touch</p>
+      <h2>Let's fix it, buy it, or kit it out</h2>
+      <p class="section-lead">Drop in, call, or send us a message — our technicians are ready to help.</p>
+
+      <ul class="contact-list">
+        <li><strong>Visit</strong><span>Your City, Pakistan — full address here</span></li>
+        <li><strong>Call</strong><span>+92 3XX XXXXXXX</span></li>
+        <li><strong>Email</strong><span>info@mtechandrepairs.com</span></li>
+        <li><strong>Hours</strong><span>Mon – Sat, 10:00 AM – 8:00 PM</span></li>
+      </ul>
+    </div>
+
+    <form class="contact-form" id="contactForm">
+      <label>Full Name
+        <input type="text" name="name" placeholder="Your name" required>
+      </label>
+      <label>Phone Number
+        <input type="tel" name="phone" placeholder="03XX XXXXXXX" required>
+      </label>
+      <label>Device &amp; Issue
+        <textarea name="message" rows="4" placeholder="e.g. iPhone 13, cracked screen" required></textarea>
+      </label>
+      <button type="submit" class="btn btn-primary btn-block">Request a Call Back</button>
+      <p class="form-note" id="formNote"></p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <a href="#top" class="brand">
+      <img src="assets/images/logo.jpeg" alt="Mtech & Repairs Limited logo" class="brand-logo small">
+      <span class="brand-text">
+        <span class="brand-name">Mtech<span class="amp">&amp;</span>repairs</span>
+        <span class="brand-sub">LIMITED</span>
+      </span>
+    </a>
+
+    <nav class="footer-nav">
+      <a href="#services">Services</a>
+      <a href="#devices">Devices</a>
+      <a href="#why">Why Us</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <p class="footer-tag">Repair &nbsp;|&nbsp; Buy &amp; Sell &nbsp;|&nbsp; Accessories</p>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; <span id="year"></span> Mtech &amp; Repairs Limited. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

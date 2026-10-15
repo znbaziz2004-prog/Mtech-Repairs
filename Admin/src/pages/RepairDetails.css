@@ -1,0 +1,1219 @@
+/* =========================================================
+   MTECH N REPAIRS - REPAIR DETAILS
+   PREMIUM BLACK + YELLOW + WHITE UI
+========================================================= */
+
+.repair-details-page {
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 30px 32px 50px;
+
+  color: #111111;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.repair-details-header {
+  margin-bottom: 24px;
+}
+
+.repair-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 6px 0;
+  margin-bottom: 20px;
+
+  border: 0;
+  background: transparent;
+
+  color: #666666;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: color 0.2s ease;
+}
+
+.repair-back-button:hover {
+  color: #111111;
+}
+
+.repair-header-main {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.repair-details-eyebrow {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #c5a400;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 1.6px;
+}
+
+.repair-header-main h1 {
+  margin: 0;
+
+  color: #111111;
+
+  font-size: 30px;
+  font-weight: 850;
+
+  letter-spacing: -0.8px;
+}
+
+.repair-header-main p {
+  margin: 8px 0 0;
+
+  color: #777777;
+
+  font-size: 13px;
+}
+
+.repair-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.repair-id-badge,
+.repair-status-badge {
+  min-height: 36px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 13px;
+
+  border-radius: 10px;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.repair-id-badge {
+  background: #ffffff;
+
+  border: 1px solid #e6e6e2;
+
+  color: #555555;
+}
+
+.repair-status-badge {
+  background: #fff4b8;
+
+  border: 1px solid #f1d94b;
+
+  color: #806a00;
+}
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.repair-summary-card {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+
+  background: #ffffff;
+
+  border: 1px solid #e8e8e3;
+
+  border-radius: 17px;
+
+  padding: 20px 22px;
+
+  margin-bottom: 24px;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.035);
+}
+
+.repair-summary-main {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+}
+
+.repair-summary-icon {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  background: #111111;
+  color: #ffd400;
+}
+
+.repair-summary-main span,
+.repair-summary-item span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #8a8a8a;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.repair-summary-main strong,
+.repair-summary-item strong {
+  color: #111111;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.repair-summary-item {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  flex-direction: column;
+
+  padding-left: 18px;
+
+  border-left: 1px solid #eeeeea;
+}
+
+.repair-summary-item small {
+  margin-top: 3px;
+
+  color: #999999;
+
+  font-size: 10px;
+}
+
+.repair-cost {
+  font-size: 16px !important;
+}
+
+/* =========================================================
+   MAIN GRID
+========================================================= */
+
+.repair-details-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.55fr)
+    minmax(320px, 0.85fr);
+
+  gap: 22px;
+
+  align-items: start;
+}
+
+.repair-details-left,
+.repair-details-right {
+  display: flex;
+  flex-direction: column;
+
+  gap: 22px;
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.repair-details-card {
+  background: #ffffff;
+
+  border: 1px solid #e8e8e3;
+
+  border-radius: 17px;
+
+  padding: 22px;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.035);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.repair-details-card:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.05);
+}
+
+.repair-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+
+  border-bottom: 1px solid #eeeeea;
+}
+
+.repair-card-eyebrow {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #b49a00;
+
+  font-size: 9px;
+  font-weight: 900;
+
+  letter-spacing: 1.4px;
+}
+
+.repair-card-header h2 {
+  margin: 0;
+
+  color: #111111;
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.repair-card-icon {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  background: #fff7cc;
+
+  color: #9b8200;
+}
+
+/* =========================================================
+   CUSTOMER
+========================================================= */
+
+.repair-customer-profile {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+}
+
+.repair-customer-avatar {
+  width: 55px;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 15px;
+
+  background: #111111;
+  color: #ffd400;
+
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.repair-customer-info h3 {
+  margin: 0 0 5px;
+
+  color: #111111;
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.repair-customer-info p {
+  margin: 3px 0;
+
+  color: #777777;
+
+  font-size: 12px;
+}
+
+.repair-phone {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* =========================================================
+   DEVICE
+========================================================= */
+
+.device-details {
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 15px;
+
+  background: #fafaf8;
+
+  border: 1px solid #eeeeea;
+
+  border-radius: 13px;
+}
+
+.device-icon {
+  width: 65px;
+  height: 65px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 13px;
+
+  background: #111111;
+  color: #ffd400;
+}
+
+.device-information {
+  flex: 1;
+}
+
+.device-information h3 {
+  margin: 0 0 13px;
+
+  color: #111111;
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.device-meta {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 15px;
+}
+
+.device-meta span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #999999;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.device-meta strong {
+  color: #444444;
+
+  font-size: 11px;
+}
+
+/* =========================================================
+   REPAIR INFO
+========================================================= */
+
+.repair-info-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 12px;
+}
+
+.repair-info-box {
+  padding: 14px;
+
+  background: #fafaf8;
+
+  border: 1px solid #eeeeea;
+
+  border-radius: 11px;
+}
+
+.repair-info-box span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #999999;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.repair-info-box strong {
+  color: #222222;
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   NOTES
+========================================================= */
+
+.repair-notes-box {
+  display: flex;
+
+  gap: 12px;
+
+  padding: 15px;
+
+  background: #fff9dc;
+
+  border: 1px solid #f1df78;
+
+  border-radius: 12px;
+
+  color: #806a00;
+}
+
+.repair-notes-box svg {
+  flex-shrink: 0;
+
+  margin-top: 2px;
+}
+
+.repair-notes-box p {
+  margin: 0;
+
+  color: #6f620d;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+/* =========================================================
+   ADDRESS
+========================================================= */
+
+.repair-address-box {
+  display: flex;
+
+  gap: 13px;
+
+  padding: 15px;
+
+  background: #fafaf8;
+
+  border: 1px solid #eeeeea;
+
+  border-radius: 13px;
+
+  color: #777777;
+}
+
+.repair-address-box > svg {
+  flex-shrink: 0;
+
+  color: #a88f00;
+}
+
+.repair-address-box strong {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #222222;
+
+  font-size: 12px;
+}
+
+.repair-address-box p {
+  margin: 2px 0;
+
+  color: #777777;
+
+  font-size: 11px;
+}
+
+/* =========================================================
+   CURRENT STATUS
+========================================================= */
+
+.repair-current-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 14px;
+
+  margin-bottom: 18px;
+
+  border-radius: 12px;
+
+  background: #fff9dc;
+
+  border: 1px solid #f1df78;
+}
+
+.repair-current-status span {
+  color: #806a00;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.repair-current-status strong {
+  color: #725e00;
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.repair-select-wrapper {
+  margin-bottom: 13px;
+}
+
+.repair-select-wrapper label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #555555;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.repair-select-wrapper select {
+  width: 100%;
+  height: 43px;
+
+  padding: 0 12px;
+
+  border: 1px solid #ddddda;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #222222;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  outline: none;
+
+  cursor: pointer;
+}
+
+.repair-select-wrapper select:focus {
+  border-color: #d9bd00;
+
+  box-shadow:
+    0 0 0 3px rgba(255, 212, 0, 0.14);
+}
+
+/* =========================================================
+   UPDATE BUTTON
+========================================================= */
+
+.repair-update-button {
+  width: 100%;
+  height: 44px;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: #111111;
+  color: #ffd400;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.repair-update-button:hover {
+  background: #222222;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 7px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================================================
+   APPOINTMENT
+========================================================= */
+
+.appointment-box {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 13px;
+
+  margin-bottom: 10px;
+
+  background: #fafaf8;
+
+  border: 1px solid #eeeeea;
+
+  border-radius: 11px;
+}
+
+.appointment-box:last-child {
+  margin-bottom: 0;
+}
+
+.appointment-icon {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  background: #111111;
+  color: #ffd400;
+}
+
+.appointment-box span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #999999;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+}
+
+.appointment-box strong {
+  color: #222222;
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.repair-timeline {
+  padding-left: 2px;
+}
+
+.repair-timeline-item {
+  position: relative;
+
+  display: flex;
+
+  gap: 12px;
+
+  min-height: 76px;
+
+  padding-bottom: 18px;
+}
+
+.repair-timeline-item:last-child {
+  min-height: auto;
+
+  padding-bottom: 0;
+}
+
+.repair-timeline-item:not(:last-child)::before {
+  content: "";
+
+  position: absolute;
+
+  left: 10px;
+  top: 23px;
+  bottom: 0;
+
+  width: 1px;
+
+  background: #ddddda;
+}
+
+.repair-timeline-item.completed:not(:last-child)::before {
+  background: #ffd400;
+}
+
+.repair-timeline-marker {
+  position: relative;
+
+  z-index: 2;
+
+  width: 21px;
+  height: 21px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #eeeeea;
+
+  color: #999999;
+}
+
+.repair-timeline-item.completed .repair-timeline-marker {
+  background: #ffd400;
+
+  color: #111111;
+}
+
+.repair-timeline-item.current .repair-timeline-marker {
+  box-shadow:
+    0 0 0 4px rgba(255, 212, 0, 0.16);
+}
+
+.repair-timeline-marker span {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #999999;
+}
+
+.repair-timeline-content {
+  flex: 1;
+
+  min-width: 0;
+}
+
+.repair-timeline-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-bottom: 3px;
+}
+
+.repair-timeline-title strong {
+  color: #222222;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.repair-timeline-title span {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 18px;
+
+  padding: 0 6px;
+
+  border-radius: 5px;
+
+  background: #111111;
+  color: #ffd400;
+
+  font-size: 7px;
+  font-weight: 900;
+
+  letter-spacing: 0.6px;
+}
+
+.repair-timeline-content p {
+  margin: 0 0 4px;
+
+  color: #858585;
+
+  font-size: 10px;
+
+  line-height: 1.4;
+}
+
+.repair-timeline-content small {
+  color: #aaaaaa;
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .repair-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .repair-details-right {
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    align-items: start;
+  }
+
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+  .repair-details-page {
+    padding: 24px 20px 40px;
+  }
+
+  .repair-header-main {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .repair-header-actions {
+    width: 100%;
+  }
+
+  .repair-summary-card {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 18px;
+  }
+
+  .repair-summary-main {
+    grid-column: 1 / -1;
+  }
+
+  .repair-summary-item {
+    align-items: flex-start;
+
+    justify-content: flex-start;
+
+    padding-left: 0;
+
+    border-left: 0;
+  }
+
+  .repair-details-right {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+  .repair-details-page {
+    padding: 20px 14px 35px;
+  }
+
+  .repair-header-main h1 {
+    font-size: 25px;
+  }
+
+  .repair-header-actions {
+    flex-wrap: wrap;
+  }
+
+  .repair-summary-card {
+    grid-template-columns: 1fr;
+
+    padding: 17px;
+  }
+
+  .repair-summary-main {
+    grid-column: auto;
+  }
+
+  .repair-summary-item {
+    padding-top: 12px;
+
+    border-top: 1px solid #eeeeea;
+  }
+
+  .repair-details-card {
+    padding: 17px;
+  }
+
+  .device-details {
+    align-items: flex-start;
+  }
+
+  .device-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .repair-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .repair-customer-profile {
+    align-items: flex-start;
+  }
+
+}
+/* =========================================================
+   REAL API STATES
+========================================================= */
+
+.repair-details-loading {
+  min-height: 65vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #77776f;
+}
+
+.repair-details-loading p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.repair-details-error {
+  min-height: 65vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.repair-details-error-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  border-radius: 18px;
+  background: #fff1ef;
+  color: #b42318;
+}
+
+.repair-details-error h2 {
+  margin: 0;
+  font-size: 23px;
+}
+
+.repair-details-error p {
+  max-width: 420px;
+  margin: 9px 0 20px;
+  color: #77776f;
+  font-size: 13px;
+}
+
+.repair-details-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 15px;
+  margin-bottom: 20px;
+  border-radius: 11px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.repair-details-alert span {
+  flex: 1;
+}
+
+.repair-details-alert button {
+  display: flex;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.repair-details-alert.success {
+  background: #ecfdf3;
+  border: 1px solid #b7ebc8;
+  color: #16794c;
+}
+
+.repair-details-alert.error {
+  background: #fff3f1;
+  border: 1px solid #f0c2bd;
+  color: #b42318;
+}
+
+/* STATUS COLORS */
+
+.repair-status-badge.status-pending {
+  background: #fff4d6;
+  color: #956800;
+}
+
+.repair-status-badge.status-confirmed {
+  background: #eaf4ff;
+  color: #2868a8;
+}
+
+.repair-status-badge.status-in-progress {
+  background: #f0ebff;
+  color: #6947ad;
+}
+
+.repair-status-badge.status-completed {
+  background: #e9f8ef;
+  color: #167447;
+}
+
+.repair-status-badge.status-cancelled {
+  background: #fff0ef;
+  color: #b42318;
+}
+
+/* EMAIL */
+
+.repair-customer-info p {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* STATUS FORM */
+
+.repair-select-wrapper textarea {
+  width: 100%;
+  min-height: 110px;
+  padding: 12px;
+  resize: vertical;
+  border: 1px solid #deded8;
+  border-radius: 10px;
+  outline: none;
+  background: #ffffff;
+  color: #222222;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.repair-select-wrapper textarea:focus {
+  border-color: #d4b600;
+  box-shadow: 0 0 0 3px rgba(255, 217, 0, 0.12);
+}
+
+.repair-select-wrapper textarea:disabled {
+  opacity: 0.65;
+}
+
+/* UPDATE BUTTON */
+
+.repair-update-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.repair-update-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* INFO LIST */
+
+.repair-info-list {
+  margin-top: 5px;
+}
+
+.repair-info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 13px 0;
+  border-bottom: 1px solid #eeeeea;
+}
+
+.repair-info-row:last-child {
+  border-bottom: 0;
+}
+
+.repair-info-row span {
+  color: #85857d;
+  font-size: 12px;
+}
+
+.repair-info-row strong {
+  color: #222222;
+  font-size: 12px;
+  text-align: right;
+}
+
+/* SPINNER */
+
+.repair-details-spin {
+  animation: repairDetailsSpin 0.9s linear infinite;
+}
+
+@keyframes repairDetailsSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}

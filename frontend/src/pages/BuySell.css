@@ -1,0 +1,133 @@
+.filter-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.filter-pill {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: rgba(20, 18, 13, 0.7);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.filter-pill.is-active,
+.filter-pill:hover {
+  border-color: var(--gold);
+  color: var(--dark);
+  background: var(--gold);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.product-card {
+  background: var(--ink-panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.product-card:hover {
+  border-color: rgba(242, 183, 5, 0.5);
+  transform: translateY(-3px);
+}
+
+.product-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.product-card__condition {
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(242, 183, 5, 0.14);
+  color: var(--gold);
+  padding: 3px 9px;
+  border-radius: 2px;
+}
+
+.product-card__name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.product-card__specs {
+  font-size: 13px;
+  color: rgba(20, 18, 13, 0.55);
+  flex: 1;
+  margin-bottom: 18px;
+}
+
+.product-card__btn {
+  width: 100%;
+  padding: 10px;
+}
+
+.product-empty {
+  color: rgba(20, 18, 13, 0.5);
+  font-size: 14px;
+  grid-column: 1 / -1;
+}
+
+.sell-section {
+  background: var(--ink-panel);
+  border-top: 1px solid var(--line);
+}
+
+.sell-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.sell-form {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 28px;
+}
+
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .sell-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.product-card__image {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 14px;
+  margin-bottom: 18px;
+  background: #f3f3f3;
+}
+
+.product-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

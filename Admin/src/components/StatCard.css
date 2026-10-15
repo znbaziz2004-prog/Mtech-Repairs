@@ -1,0 +1,141 @@
+/* =========================================================
+   MTECH REPAIRS ADMIN
+   STAT CARD
+========================================================= */
+
+.stat-card {
+  position: relative;
+
+  min-height: 155px;
+
+  padding: 22px;
+
+  background: #ffffff;
+
+  border: 1px solid #e8e8e5;
+
+  border-radius: 17px;
+
+  box-shadow: 0 8px 25px rgba(20, 20, 20, 0.035);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.stat-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 110px;
+  height: 110px;
+
+  right: -45px;
+  bottom: -50px;
+
+  border-radius: 50%;
+
+  background: rgba(245, 196, 0, 0.08);
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow: 0 14px 35px rgba(20, 20, 20, 0.07);
+}
+
+/* TOP */
+
+.stat-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ICON */
+
+.stat-icon {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+}
+
+.stat-orders {
+  background: #fff6cc;
+  color: #b58c00;
+}
+
+.stat-repairs {
+  background: #eeeeee;
+  color: #111111;
+}
+
+.stat-products {
+  background: #fff6cc;
+  color: #8c7000;
+}
+
+.stat-revenue {
+  background: #111111;
+  color: #f5c400;
+}
+
+/* CHANGE */
+
+.stat-change {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 2px;
+
+  padding: 5px 8px;
+
+  border-radius: 7px;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.change-positive {
+  background: #edf9f2;
+  color: #25834d;
+}
+
+.change-negative {
+  background: #fff0f0;
+  color: #c94b4b;
+}
+
+/* CONTENT */
+
+.stat-card-content {
+  margin-top: 19px;
+}
+
+.stat-title {
+  color: #888888;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stat-card-content h3 {
+  margin: 6px 0 0;
+
+  color: #111111;
+
+  font-size: 28px;
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: -0.7px;
+}

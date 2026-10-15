@@ -1,0 +1,28 @@
+.about-body {
+  max-width: 68ch;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.about-body p {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: rgba(20, 18, 13, 0.75);
+}
+
+.about-values {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 900px) {
+  .about-values {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .about-values {
+    grid-template-columns: 1fr;
+  }
+}

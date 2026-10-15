@@ -1,0 +1,293 @@
+:root {
+  /* Exact brand color system per spec — black + yellow + white only */
+  --black: #050505;
+  --black-soft: #111111;
+  --gold: #f4b900;
+  --gold-bright: #ffc400;
+  --white: #ffffff;
+  --bg-light: #f7f7f7;
+  --bg-soft-gray: #e9e9e9;
+  --text-dark: #111111;
+  --text-muted: #666666;
+
+  /* Semantic aliases used throughout the component CSS */
+  --ink: #ffffff;
+  --ink-soft: #f7f7f7;
+  --ink-panel: #ffffff;
+  --paper: #111111;
+  --paper-dim: #666666;
+  --gold-deep: #c99500;
+  --gold-dim: #ffdf80;
+  --line: rgba(17, 17, 17, 0.1);
+  --line-on-paper: rgba(17, 17, 17, 0.12);
+  --dark: #050505;
+  --dark-soft: #111111;
+
+  /* Type */
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --container: 1180px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #ffffff 0%, var(--bg-light) 100%);
+  color: var(--paper);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  margin: 0;
+  color: var(--paper);
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* Circuit trace divider used across sections instead of a plain <hr> */
+.trace-divider {
+  width: 100%;
+  height: 18px;
+  overflow: visible;
+}
+
+/* Mono label used for technical eyebrow-style tags tied to real spec data (level, price, time) */
+.mono-tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--gold);
+}
+
+.section {
+  padding: 96px 0;
+}
+
+.section-tight {
+  padding: 64px 0;
+}
+
+@media (max-width: 720px) {
+  .section {
+    padding: 64px 0;
+  }
+}
+
+/* Scroll-reveal animation used by the Reveal component across the site */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Ambient background motion — subtle, site-wide */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(600px circle at 8% 8%, rgba(242, 183, 5, 0.07), transparent 60%),
+    radial-gradient(520px circle at 92% 28%, rgba(242, 183, 5, 0.05), transparent 60%),
+    radial-gradient(720px circle at 50% 95%, rgba(20, 18, 13, 0.035), transparent 60%);
+  animation: blob-drift 20s ease-in-out infinite alternate;
+}
+
+@keyframes blob-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-2%, 2%) scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+  }
+}
+
+/* Page-level transition on route change */
+.page-transition {
+  animation: page-fade-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition {
+    animation: none;
+  }
+}
+
+/* Cursor-tracking spotlight glow — shared across all glass cards. JS (see
+   utils/interactions.js) sets --mx/--my per card on mousemove; CSS owns the
+   show/hide via :hover so nothing breaks if JS hasn't attached yet. */
+.svc-card,
+.device-card,
+.brand-card,
+.why-us-card,
+.rtg-card,
+.wizard__choice,
+.testi-card,
+.faq-item {
+  --mx: 50%;
+  --my: 0%;
+  position: relative;
+}
+
+.svc-card::after,
+.device-card::after,
+.brand-card::after,
+.why-us-card::after,
+.rtg-card::after,
+.wizard__choice::after,
+.testi-card::after,
+.faq-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(180px circle at var(--mx) var(--my), rgba(244, 185, 0, 0.14), transparent 68%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.svc-card:hover::after,
+.device-card:hover::after,
+.brand-card:hover::after,
+.why-us-card:hover::after,
+.rtg-card:hover::after,
+.wizard__choice:hover::after,
+.testi-card:hover::after,
+.faq-item:hover::after {
+  opacity: 1;
+}
+
+/* Buttons — used globally across Hero, CTA bands, cards, forms */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 26px;
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 14.5px;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.35) 50%, transparent 80%);
+  transform: translateX(-120%);
+  transition: transform 0.55s ease;
+}
+
+.btn:hover::before {
+  transform: translateX(120%);
+}
+
+.btn--gold {
+  background: var(--gold);
+  color: var(--dark);
+}
+.btn--gold:hover {
+  background: var(--gold-bright);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(242, 183, 5, 0.35);
+}
+
+.btn--ghost {
+  border-color: var(--line-on-paper);
+  color: var(--paper);
+}
+.btn--ghost:hover {
+  border-color: var(--gold-deep);
+  color: var(--gold-deep);
+}

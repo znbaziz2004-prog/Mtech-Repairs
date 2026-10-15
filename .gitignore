@@ -1,0 +1,24 @@
+@"
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+build/
+coverage/
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+*backup*.sql
+*_backup.sql
+"@ | Set-Content -Path .gitignore -Encoding utf8
+
+@"
+.env
+.env.*
+!.env.example
+node_modules/
+coverage/
+*.log
+"@ | Set-Content -Path backend/.gitignore -Encoding utf8

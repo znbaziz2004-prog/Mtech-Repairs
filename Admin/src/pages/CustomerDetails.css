@@ -1,0 +1,607 @@
+/* =========================================================
+   MTECH N REPAIRS - CUSTOMER DETAILS
+   PREMIUM BLACK + YELLOW ADMIN UI
+========================================================= */
+
+.customer-details-page {
+  min-height: 100vh;
+  padding: 4px 4px 45px;
+  color: #171717;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.customer-details-header {
+  margin-bottom: 24px;
+}
+
+.customer-back-button {
+  height: 39px;
+  padding: 0 13px;
+  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #deded8;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #55554f;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.customer-back-button:hover {
+  border-color: #dfc600;
+  background: #fffdf0;
+  color: #806b00;
+  transform: translateX(-2px);
+}
+
+.customer-header-main {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.customer-details-eyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #a18800;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.customer-header-main h1 {
+  margin: 0;
+  color: #111111;
+  font-size: 31px;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+}
+
+.customer-header-main p {
+  margin: 7px 0 0;
+  color: #77776f;
+  font-size: 13px;
+}
+
+.customer-details-status {
+  padding: 8px 13px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.customer-details-status.active {
+  background: #eaf8ef;
+  color: #167447;
+}
+
+.customer-details-status.inactive {
+  background: #f2f2f0;
+  color: #77776f;
+}
+
+/* =========================================================
+   PROFILE HERO
+========================================================= */
+
+.customer-profile-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 145px;
+  padding: 26px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  border-radius: 17px;
+  background:
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(255, 220, 0, 0.16),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #151515,
+      #242424
+    );
+  color: #ffffff;
+  box-shadow: 0 12px 30px rgba(15, 15, 15, 0.12);
+}
+
+.customer-profile-card::before {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: -75px;
+  bottom: -105px;
+  border: 1px solid rgba(255, 220, 0, 0.25);
+  border-radius: 50%;
+}
+
+.customer-profile-avatar {
+  position: relative;
+  z-index: 1;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #ffdc00;
+  border-radius: 20px;
+  background: #ffdc00;
+  color: #171717;
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.customer-profile-content {
+  position: relative;
+  z-index: 1;
+}
+
+.customer-profile-content > span {
+  color: #ffdc00;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.7px;
+}
+
+.customer-profile-content h2 {
+  margin: 5px 0 10px;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.customer-profile-contact {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.customer-profile-contact span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #d1d1cc;
+  font-size: 11px;
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.customer-detail-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.customer-detail-stat {
+  min-height: 93px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  border: 1px solid #e4e4de;
+  border-radius: 15px;
+  background: #ffffff;
+  box-shadow: 0 5px 18px rgba(20, 20, 20, 0.035);
+}
+
+.customer-detail-stat-icon {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #fff4a8;
+  color: #806b00;
+}
+
+.customer-detail-stat-icon.green {
+  background: #e9f8ef;
+  color: #167447;
+}
+
+.customer-detail-stat-icon.blue {
+  background: #eaf4ff;
+  color: #2868a8;
+}
+
+.customer-detail-stat span {
+  display: block;
+  margin-bottom: 4px;
+  color: #85857d;
+  font-size: 11px;
+}
+
+.customer-detail-stat strong {
+  display: block;
+  color: #1d1d1d;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+/* =========================================================
+   MAIN GRID
+========================================================= */
+
+.customer-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 17px;
+  margin-bottom: 17px;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.customer-details-card {
+  overflow: hidden;
+  border: 1px solid #e3e3dd;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 6px 22px rgba(20, 20, 20, 0.045);
+}
+
+.customer-card-header {
+  min-height: 70px;
+  padding: 17px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eeeeea;
+}
+
+.customer-card-header > div span {
+  display: block;
+  margin-bottom: 5px;
+  color: #a18800;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.customer-card-header h2 {
+  margin: 0;
+  color: #202020;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.customer-card-header > svg {
+  color: #9a8500;
+}
+
+/* =========================================================
+   INFO LIST
+========================================================= */
+
+.customer-info-list {
+  padding: 5px 20px 10px;
+}
+
+.customer-info-row {
+  min-height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #eeeeea;
+}
+
+.customer-info-row:last-child {
+  border-bottom: 0;
+}
+
+.customer-info-row span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #85857d;
+  font-size: 11px;
+}
+
+.customer-info-row strong {
+  max-width: 60%;
+  color: #292929;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: right;
+  word-break: break-word;
+}
+
+/* =========================================================
+   REPAIR HISTORY
+========================================================= */
+
+.customer-repair-history {
+  width: 100%;
+}
+
+.customer-repairs-list {
+  padding: 6px 20px;
+}
+
+.customer-repair-item {
+  min-height: 82px;
+  padding: 13px 0;
+  display: grid;
+  grid-template-columns: 42px minmax(180px, 1fr) auto auto;
+  align-items: center;
+  gap: 13px;
+  border-bottom: 1px solid #eeeeea;
+}
+
+.customer-repair-item:last-child {
+  border-bottom: 0;
+}
+
+.customer-repair-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  background: #fff5b5;
+  color: #806b00;
+}
+
+.customer-repair-main {
+  min-width: 0;
+}
+
+.customer-repair-main strong {
+  display: block;
+  margin-bottom: 3px;
+  overflow: hidden;
+  color: #242424;
+  font-size: 13px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.customer-repair-main > span {
+  display: block;
+  margin-bottom: 5px;
+  color: #92928a;
+  font-size: 10px;
+}
+
+.customer-repair-main p {
+  margin: 0;
+  overflow: hidden;
+  color: #66665f;
+  font-size: 11px;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.customer-repair-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.customer-repair-meta small {
+  color: #92928a;
+  font-size: 10px;
+}
+
+.customer-repair-status {
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 9px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.customer-repair-status.status-pending {
+  background: #fff4d6;
+  color: #956800;
+}
+
+.customer-repair-status.status-confirmed {
+  background: #eaf4ff;
+  color: #2868a8;
+}
+
+.customer-repair-status.status-in-progress {
+  background: #f0ebff;
+  color: #6947ad;
+}
+
+.customer-repair-status.status-completed {
+  background: #e9f8ef;
+  color: #167447;
+}
+
+.customer-repair-status.status-cancelled {
+  background: #fff0ef;
+  color: #b42318;
+}
+
+.customer-repair-view {
+  height: 32px;
+  padding: 0 11px;
+  border: 1px solid #deded8;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #55554f;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.customer-repair-view:hover {
+  border-color: #dfc600;
+  background: #fff8c9;
+  color: #806b00;
+}
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.customer-no-repairs {
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #999990;
+}
+
+.customer-no-repairs p {
+  margin: 10px 0 0;
+  font-size: 12px;
+}
+
+/* =========================================================
+   LOADING / ERROR
+========================================================= */
+
+.customer-details-loading {
+  min-height: 65vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #77776f;
+}
+
+.customer-details-loading p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.customer-details-error {
+  min-height: 65vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.customer-details-error-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  background: #fff1ef;
+  color: #b42318;
+}
+
+.customer-details-error h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.customer-details-error p {
+  max-width: 400px;
+  margin: 8px 0 20px;
+  color: #85857d;
+  font-size: 12px;
+}
+
+.customer-details-spin {
+  animation: customerDetailsSpin 0.9s linear infinite;
+}
+
+@keyframes customerDetailsSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+  .customer-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .customer-detail-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .customer-header-main {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 650px) {
+  .customer-details-page {
+    padding: 0 0 30px;
+  }
+
+  .customer-header-main h1 {
+    font-size: 27px;
+  }
+
+  .customer-profile-card {
+    padding: 20px;
+    align-items: flex-start;
+  }
+
+  .customer-profile-avatar {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+  }
+
+  .customer-profile-content h2 {
+    font-size: 20px;
+  }
+
+  .customer-profile-contact {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .customer-repair-item {
+    grid-template-columns: 40px 1fr auto;
+  }
+
+  .customer-repair-meta {
+    grid-column: 2;
+    align-items: flex-start;
+  }
+
+  .customer-repair-view {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+  }
+}

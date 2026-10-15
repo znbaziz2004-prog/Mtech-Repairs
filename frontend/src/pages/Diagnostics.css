@@ -1,0 +1,38 @@
+.diag-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.diag-step {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+
+.diag-step:first-child {
+  padding-top: 0;
+}
+
+.diag-step__num {
+  font-size: 22px;
+  color: var(--gold);
+}
+
+.diag-step h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.diag-step p {
+  font-size: 14px;
+  color: rgba(20, 18, 13, 0.62);
+  line-height: 1.55;
+  max-width: 60ch;
+}

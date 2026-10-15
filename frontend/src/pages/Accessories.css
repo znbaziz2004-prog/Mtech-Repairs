@@ -1,0 +1,70 @@
+.acc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.acc-card {
+  background: var(--ink-panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.acc-card:hover {
+  border-color: rgba(242, 183, 5, 0.5);
+  transform: translateY(-3px);
+}
+
+.acc-card__cat {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(20, 18, 13, 0.45);
+}
+
+.acc-card__name {
+  font-size: 15px;
+  font-weight: 600;
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .acc-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .acc-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.acc-card__image {
+  width: 100%;
+  height: 220px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.acc-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.acc-card__cart-btn {
+  width: 100%;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+.acc-card__cart-btn:hover {
+  transform: translateY(-1px);
+}

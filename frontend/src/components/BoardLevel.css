@@ -1,0 +1,96 @@
+.board-level {
+  position: relative;
+  background: var(--black);
+  padding: 96px 0;
+  overflow: hidden;
+}
+
+.board-level__grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(244, 185, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 185, 0, 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, black, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, black, transparent 80%);
+}
+
+.board-level__inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 780px;
+}
+
+.board-level__badge {
+  display: inline-block;
+  background: rgba(244, 185, 0, 0.12);
+  border: 1px solid rgba(244, 185, 0, 0.4);
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 30px;
+  margin-bottom: 22px;
+}
+
+.board-level__title {
+  color: #ffffff;
+  font-size: clamp(28px, 3.6vw, 42px);
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.board-level__sub {
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 15.5px;
+  line-height: 1.65;
+  max-width: 60ch;
+  margin: 0 auto;
+}
+
+.board-level__highlights {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.board-level__chip {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 20px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.board-level__chip:hover {
+  border-color: var(--gold);
+  background: rgba(244, 185, 0, 0.1);
+}
+
+.board-level__chip-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.board-level__cta {
+  margin-top: 40px;
+}
+
+@media (max-width: 600px) {
+  .board-level {
+    padding: 72px 0;
+  }
+}

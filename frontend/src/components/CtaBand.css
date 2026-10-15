@@ -1,0 +1,35 @@
+.cta-band {
+  background: var(--gold);
+  color: var(--dark);
+}
+
+.cta-band__inner {
+  padding: 52px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.cta-band__title {
+  color: var(--dark);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.cta-band__sub {
+  margin-top: 8px;
+  color: rgba(20, 18, 13, 0.75);
+  font-size: 14.5px;
+  max-width: 50ch;
+}
+
+.cta-band .btn--gold {
+  background: var(--dark);
+  color: #ffffff;
+}
+
+.cta-band .btn--gold:hover {
+  background: var(--dark-soft);
+}

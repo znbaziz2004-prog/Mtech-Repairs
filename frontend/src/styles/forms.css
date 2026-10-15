@@ -1,0 +1,57 @@
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: rgba(20, 18, 13, 0.75);
+  margin-bottom: 16px;
+}
+
+input,
+select,
+textarea {
+  font-family: var(--font-body);
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 12px 14px;
+  color: var(--paper);
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--gold);
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.form-note {
+  margin-top: 14px;
+  font-size: 13.5px;
+}
+
+.form-note--ok {
+  color: #6fcf97;
+}
+
+.form-note--err {
+  color: #eb5757;
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
