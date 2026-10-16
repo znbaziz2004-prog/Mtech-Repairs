@@ -76,3 +76,115 @@
     border-radius: 14px;
   }
 }
+/* ---------- Logo art (right side) ---------- */
+.page-header__art {
+  position: absolute;
+  top: 50%;
+  right: 7%;
+  width: clamp(220px, 26vw, 340px);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.page-header__art-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  animation: ph-art-in 1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.25s both;
+}
+
+.page-header__logo {
+  position: relative;
+  z-index: 3;
+  width: 72%;
+  height: auto;
+  filter: drop-shadow(0 0 24px rgba(244, 185, 0, 0.35));
+  animation: ph-float 6s ease-in-out 1.3s infinite;
+}
+
+.page-header__glow {
+  position: absolute;
+  inset: -15%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 185, 0, 0.28) 0%, rgba(244, 185, 0, 0.08) 45%, transparent 70%);
+  z-index: 1;
+  animation: ph-glow 5s ease-in-out infinite;
+}
+
+.page-header__ring {
+  position: absolute;
+  inset: 4%;
+  border-radius: 50%;
+  border: 1px dashed rgba(244, 185, 0, 0.28);
+  z-index: 2;
+  animation: ph-spin 40s linear infinite;
+}
+
+.page-header__beam {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  width: 150px;
+  height: 480px;
+  margin-left: -75px;
+  transform-origin: 50% 100%;
+  transform: rotate(34deg);
+  background: linear-gradient(to top, rgba(244, 185, 0, 0.26), transparent 90%);
+  clip-path: polygon(38% 100%, 62% 100%, 100% 0, 0 0);
+  z-index: 0;
+  animation: ph-beam 5s ease-in-out infinite;
+}
+
+@keyframes ph-art-in {
+  from { opacity: 0; transform: translateX(40px) scale(0.9); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes ph-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+@keyframes ph-glow {
+  0%, 100% { opacity: 0.7; transform: scale(0.96); }
+  50%      { opacity: 1;   transform: scale(1.06); }
+}
+
+@keyframes ph-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ph-beam {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+
+@media (max-width: 1100px) {
+  .page-header__art {
+    right: 3%;
+    width: clamp(200px, 34vw, 300px);
+    opacity: 0.22;
+  }
+}
+
+@media (max-width: 700px) {
+  .page-header__art {
+    right: -40px;
+    width: 220px;
+    opacity: 0.18;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-header__art-inner,
+  .page-header__logo,
+  .page-header__glow,
+  .page-header__ring,
+  .page-header__beam {
+    animation: none;
+  }
+}
