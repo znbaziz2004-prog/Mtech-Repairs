@@ -27,7 +27,7 @@ const Dashboard = () => {
       const token = localStorage.getItem("mtech_admin_token");
 
       const response = await fetch(
-        "http://localhost:5000/api/admin/dashboard",
+        "https://mtechnrepairs.hostless.app/api/admin/dashboard",
         {
           method: "GET",
           headers: {
