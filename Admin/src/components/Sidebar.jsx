@@ -9,6 +9,7 @@ import {
   LogOut,
   X,
   CreditCard,
+  MessageSquare,
 
 } from "lucide-react";
 
@@ -66,6 +67,9 @@ const Sidebar = ({ isOpen, onClose }) => {
       path: "/customers",
       icon: Users,
     },
+
+   
+    { label: "Messages", path: "/messages", icon: MessageSquare },
   ];
 
   return (

@@ -15,6 +15,7 @@ import Payments from "./pages/Payments";
 import ProductDetails from "./pages/ProductDetails";
 import Customers from "./pages/Customers";
 import CustomerDetails from "./pages/CustomerDetails";
+import Messages from "./pages/Messages.jsx";
 import Settings from "./pages/Settings";
 import Services from "./pages/Services";
 
@@ -89,6 +90,8 @@ const App = () => {
               path="/customers"
               element={<Customers />}
             />
+
+            <Route path="/messages" element={<Messages />} />
 
             <Route path="/customers/:id" element={<CustomerDetails />} />
 
