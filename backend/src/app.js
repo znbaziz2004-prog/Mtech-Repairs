@@ -39,12 +39,14 @@ app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
- 
+
   'https://mtechrepairs.co.uk',
   'https://www.mtechrepairs.co.uk',
+  'https://admin.mtechrepairs.co.uk',
 ];
 
 app.use(
+
   cors({
     origin: function (origin, callback) {
       // Allow requests without an origin
@@ -66,7 +68,7 @@ app.use(
     allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
-
+app.options(/.*/, cors());
 
 
 
