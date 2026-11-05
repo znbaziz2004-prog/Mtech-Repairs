@@ -320,7 +320,7 @@ if (!/^\d{7,12}$/.test(phoneDigits)) {
                         src={
                           item.image.startsWith('http')
                             ? item.image
-                            : `https://mtechnrepairs.hostless.app${item.image}`
+                            : `https://api.mtechrepairs.co.uk${item.image}`
                         }
                         alt={item.name}
                       />

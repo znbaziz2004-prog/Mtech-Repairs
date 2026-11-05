@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import "./Login.css";
 
-const API_BASE_URL = "https://mtechnrepairs.hostless.app/api";
+const API_BASE_URL = "https://api.mtechrepairs.co.uk/api";
 
 const Login = () => {
   const navigate = useNavigate();

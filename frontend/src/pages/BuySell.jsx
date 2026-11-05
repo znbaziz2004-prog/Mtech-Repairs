@@ -81,7 +81,11 @@ export default function BuySell() {
   {p.image && (
     <div className="product-card__image">
       <img
-        src={`https://mtechnrepairs.hostless.app${p.image}`}
+        src={
+  p.image.startsWith('http')
+    ? p.image
+    : `https://api.mtechrepairs.co.uk${p.image}`
+}
         alt={p.name}
       />
     </div>

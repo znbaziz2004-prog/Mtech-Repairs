@@ -89,11 +89,11 @@ export default function Accessories() {
                 {a.image && (
                   <div className="acc-card__image">
                     <img
-                      src={
-                        a.image.startsWith('http')
-                          ? a.image
-                          : `https://mtechnrepairs.hostless.app${a.image}`
-                      }
+                     src={
+  a.image.startsWith('http')
+    ? a.image
+    : `https://api.mtechrepairs.co.uk${a.image}`
+}
                       alt={a.name}
                     />
                   </div>

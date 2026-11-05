@@ -15,7 +15,7 @@ import {
 import "./Messages.css";
 
 const api = axios.create({
-  baseURL: "https://mtechnrepairs.hostless.app/api",
+ baseURL: "https://api.mtechrepairs.co.uk/api",
 });
 
 const initials = (name = "") =>
