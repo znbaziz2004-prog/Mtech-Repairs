@@ -6,6 +6,8 @@ import useDocumentMeta from '../utils/useDocumentMeta.js';
 import { useCart } from '../components/CartContext';
 import './ProductDetails.css';
 
+import { getImageUrl } from '../utils/api.js';
+
 export default function ProductDetails() {
     const { addToCart } = useCart();
   const { id } = useParams();
@@ -85,7 +87,7 @@ export default function ProductDetails() {
           <div className="product-details-image">
             {product.image ? (
               <img
-                src={`https://mtechnrepairs.hostless.app${product.image}`}
+                src={getImageUrl(product.image)}
                 alt={product.name}
               />
             ) : (

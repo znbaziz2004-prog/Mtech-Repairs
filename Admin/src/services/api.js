@@ -1,5 +1,4 @@
-
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "https://api.mtechrepairs.co.uk/api";
 
 const apiRequest = async (endpoint, options = {}) => {
   const token = localStorage.getItem("mtech_admin_token");
@@ -296,7 +295,7 @@ export const getPaymentReceipt = async (id) => {
    IMAGE UPLOAD
 ========================================================= */
 
-const API_ORIGIN = API_BASE_URL.replace(/\/api$/, "");
+const API_ORIGIN = API_BASE_URL.replace(/\/api\/?$/, "");
 
 export const imageUrl = (path) => {
   if (!path) return "";
@@ -305,11 +304,7 @@ export const imageUrl = (path) => {
     return path;
   }
 
-  if (path.startsWith("/")) {
-    return `${API_ORIGIN}${path}`;
-  }
-
-  return `${API_ORIGIN}/${path}`;
+  return `${API_ORIGIN}${path.startsWith("/") ? "" : "/"}${path}`;
 };
 
 export const uploadImage = async (file) => {

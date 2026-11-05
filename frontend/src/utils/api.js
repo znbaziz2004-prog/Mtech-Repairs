@@ -1,7 +1,20 @@
 import axios from 'axios';
 
+const API_URL =
+  import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
+export const API_BASE_URL = API_URL.replace(/\/$/, '');
+export const BACKEND_URL = API_BASE_URL.replace(/\/api$/, '');
+
+export const getImageUrl = (image) => {
+  if (!image) return '';
+  if (image.startsWith('http')) return image;
+
+  return `${BACKEND_URL}${image.startsWith('/') ? '' : '/'}${image}`;
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: API_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
 });
 
@@ -15,21 +28,9 @@ export const sendContactMessage = (payload) => api.post('/contact', payload);
 export const getTestimonials = () => api.get('/testimonials');
 export const createOrder = (payload) => api.post('/orders', payload);
 
-export const createStripeCheckoutSession = (payload) =>
-  api.post('/payments/create-checkout-session', payload);
-
-
-export const verifyStripeCheckoutSession = (sessionId) =>
-  api.get('/payments/verify-checkout-session', {
-    params: { session_id: sessionId },
-  });
-  export const createBankTransferOrder = (formData) =>
+export const createBankTransferOrder = (formData) =>
   api.post('/payments/bank-transfer', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
+    headers: { 'Content-Type': 'multipart/form-data' },
   });
-  
-
 
 export default api;
