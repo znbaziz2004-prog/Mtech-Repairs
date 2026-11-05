@@ -38,7 +38,9 @@ const pool = mysql.createPool({
 async function connectDB() {
   try {
     const connection = await pool.getConnection();
-    console.log('[db] MySQL/TiDB connected successfully');
+   console.log(
+  `[db] MySQL connected successfully (${process.env.DB_HOST || 'localhost'})`
+);
     connection.release();
   } catch (err) {
     console.error('[db] Database connection error:', err.message);

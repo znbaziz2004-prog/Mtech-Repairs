@@ -1,93 +1,29 @@
 
-import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import { useCart } from '../components/CartContext';
-import { verifyStripeCheckoutSession } from '../utils/api';
+import { useLocation, Link } from 'react-router-dom';
 import './PaymentSuccess.css';
 
 export default function PaymentSuccess() {
-  const [searchParams] = useSearchParams();
-  const sessionId = searchParams.get('session_id');
-  const { clearCart } = useCart();
+  const location = useLocation();
 
-  const [status, setStatus] = useState('checking');
-  const [orderNumber, setOrderNumber] = useState('');
-  const [message, setMessage] = useState('Verifying your payment...');
-
-  useEffect(() => {
-    let active = true;
-
-    const verifyPayment = async () => {
-      if (!sessionId) {
-        setStatus('error');
-        setMessage('Payment session ID is missing.');
-        return;
-      }
-
-      try {
-        const response = await verifyStripeCheckoutSession(sessionId);
-        const data = response.data;
-
-        if (!active) return;
-
-        if (data.success && data.paid) {
-          setStatus('paid');
-          setOrderNumber(data.orderNumber || '');
-          setMessage('Your payment has been confirmed.');
-          clearCart();
-        } else {
-          setStatus('pending');
-          setMessage(
-            data.message ||
-              'Your payment is not confirmed yet. Please check again shortly.'
-          );
-        }
-      } catch (error) {
-        if (!active) return;
-
-        setStatus('error');
-        setMessage(
-          error.response?.data?.message ||
-            'We could not verify your payment. Please contact support if you were charged.'
-        );
-      }
-    };
-
-    verifyPayment();
-
-    return () => {
-      active = false;
-    };
-  }, [sessionId, clearCart]);
+  const orderNumber = location.state?.orderNumber || '';
 
   return (
     <section className="section payment-result-page">
       <div className="container">
         <div className="payment-result-card">
           <div
-            className={`payment-result-icon payment-result-icon--${status}`}
+            className="payment-result-icon payment-result-icon--pending"
             aria-live="polite"
           >
-            {status === 'paid'
-              ? '✓'
-              : status === 'checking'
-                ? '…'
-                : status === 'pending'
-                  ? '⌛'
-                  : '!'}
+            ⌛
           </div>
 
-          <h1>
-            {status === 'paid'
-              ? 'Payment Successful!'
-              : status === 'checking'
-                ? 'Verifying Payment'
-                : status === 'pending'
-                  ? 'Payment Pending'
-                  : 'Payment Verification Failed'}
-          </h1>
+          <h1>Bank Transfer Submitted!</h1>
 
-          <p>{message}</p>
+          <p>
+            Your order has been placed successfully.
+            Your payment is currently pending verification.
+          </p>
 
           {orderNumber && (
             <p className="payment-order-number">
@@ -95,17 +31,13 @@ export default function PaymentSuccess() {
             </p>
           )}
 
-          <div className="payment-result-actions">
-            {status === 'pending' && (
-              <button
-                type="button"
-                className="btn"
-                onClick={() => window.location.reload()}
-              >
-                Check Again
-              </button>
-            )}
+          <p>
+            Our team will verify your bank transfer and update
+            your payment status. You will receive confirmation
+            once your payment is approved.
+          </p>
 
+          <div className="payment-result-actions">
             <Link to="/" className="btn">
               Back to Home
             </Link>

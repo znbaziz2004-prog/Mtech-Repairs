@@ -1,5 +1,5 @@
 
-const API_BASE_URL = "https://mtechnrepairs.hostless.app/api";
+const API_BASE_URL = "http://localhost:5000/api";
 
 const apiRequest = async (endpoint, options = {}) => {
   const token = localStorage.getItem("mtech_admin_token");
@@ -245,15 +245,51 @@ export const deleteOrder = async (id) => {
    PAYMENTS
 ========================================================= */
 
-// GET PAID ONLINE ORDERS
+/* =========================================================
+   PAYMENTS
+========================================================= */
+
+// GET PAID ORDERS
 export const getPaidOrders = async () => {
-  const response = await getOrders({
+  return getOrders({
     payment: "paid",
     page: 1,
     limit: 100,
   });
+};
 
-  return response;
+// APPROVE BANK TRANSFER
+export const approveBankTransfer = async (id) => {
+  return apiRequest(`/payments/admin/${id}/approve`, {
+    method: "PATCH",
+  });
+};
+
+// REJECT BANK TRANSFER
+export const rejectBankTransfer = async (id) => {
+  return apiRequest(`/payments/admin/${id}/reject`, {
+    method: "PATCH",
+  });
+};
+
+// VIEW PAYMENT RECEIPT
+export const getPaymentReceipt = async (id) => {
+  const token = localStorage.getItem("mtech_admin_token");
+
+  const response = await fetch(
+    `${API_BASE_URL}/payments/admin/${id}/receipt`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Unable to load payment receipt.");
+  }
+
+  return response.blob();
 };
 
 /* =========================================================

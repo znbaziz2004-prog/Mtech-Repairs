@@ -66,8 +66,12 @@ const Accessories = () => {
       setLoading(true);
       setError("");
 
-      const response = await getAccessories();
-      setItems(response.data || []);
+     const response = await getAccessories();
+
+console.log("Accessories API Response:", response);
+console.log("First Accessory:", response.data?.[0]);
+
+setItems(response.data || []);
     } catch (err) {
       setError(err.message || "Failed to load accessories.");
     } finally {
@@ -104,7 +108,7 @@ const Accessories = () => {
       name: item.name || "",
       category: item.category || "Chargers",
       price: item.price ?? "",
-      stock: item.stock ?? 0,
+      stock: item.inStock ?? 0,
       image: item.image || "",
     });
     setError("");
@@ -127,13 +131,13 @@ const Accessories = () => {
       return;
     }
 
-    const payload = {
-      name: form.name.trim(),
-      category: form.category,
-      price: Number(form.price),
-      stock: Number(form.stock) || 0,
-      image: form.image,
-    };
+   const payload = {
+  name: form.name.trim(),
+  category: form.category,
+  price: Number(form.price),
+  inStock: Number(form.stock) || 0,
+  image: form.image,
+};
 
     try {
       setSaving(true);
@@ -188,7 +192,7 @@ const Accessories = () => {
   }, [items, search, categoryFilter]);
 
   const total = items.length;
-  const inStockCount = items.filter((a) => Number(a.stock) > 0).length;
+ const inStockCount = items.filter((a) => Number(a.inStock) > 0).length;
   const outCount = total - inStockCount;
 
   return (
@@ -342,7 +346,7 @@ const Accessories = () => {
 
               <tbody>
                 {filtered.map((item) => {
-                  const stock = Number(item.stock || 0);
+                  const stock = Number(item.inStock ?? 0);
                   const isInStock = stock > 0;
 
                   return (

@@ -1,6 +1,11 @@
 
 import { useEffect, useState } from "react";
-import { getAdminPayments } from "../services/api";
+import {
+  getAdminPayments,
+  approveBankTransfer,
+  rejectBankTransfer,
+  getPaymentReceipt,
+} from "../services/api";
 import "./Payments.css";
 
 const Payments = () => {
@@ -8,10 +13,12 @@ const Payments = () => {
   const [summary, setSummary] = useState({
     totalPayments: 0,
     totalRevenue: 0,
+    pendingPayments: 0,
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
+  const [actionLoading, setActionLoading] = useState(null);
 
   const loadPayments = async () => {
     try {
@@ -26,6 +33,7 @@ const Payments = () => {
           response.summary || {
             totalPayments: 0,
             totalRevenue: 0,
+            pendingPayments: 0,
           }
         );
       } else {
@@ -77,6 +85,8 @@ const Payments = () => {
       payment.email,
       payment.phone,
       payment.paymentMethod,
+      payment.paymentStatus,
+      payment.bankTransferReference,
       payment.stripeSessionId,
       payment.stripePaymentIntentId,
     ].some((value) =>
@@ -89,8 +99,69 @@ const Payments = () => {
 
     try {
       await navigator.clipboard.writeText(value);
+      alert("Copied successfully.");
+    } catch {
+      alert("Unable to copy.");
+    }
+  };
+
+  const handleApprove = async (payment) => {
+    const confirmed = window.confirm(
+      `Have you verified the bank payment in your bank account for order ${payment.orderNumber || payment.orderId}?`
+    );
+
+    if (!confirmed) return;
+
+    try {
+      setActionLoading(payment.paymentId);
+
+      await approveBankTransfer(payment.paymentId);
+
+      alert("Bank transfer approved successfully.");
+      await loadPayments();
     } catch (err) {
-      console.error("Unable to copy payment ID:", err);
+      alert(err.message || "Unable to approve payment.");
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleReject = async (payment) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to reject this bank transfer?"
+    );
+
+    if (!confirmed) return;
+
+    try {
+      setActionLoading(payment.paymentId);
+
+      await rejectBankTransfer(payment.paymentId);
+
+      alert("Bank transfer rejected.");
+      await loadPayments();
+    } catch (err) {
+      alert(err.message || "Unable to reject payment.");
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleReceipt = async (payment) => {
+    try {
+      const blob = await getPaymentReceipt(payment.paymentId);
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `payment-receipt-${payment.paymentId}`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      alert(err.message || "Unable to download receipt.");
     }
   };
 
@@ -99,7 +170,7 @@ const Payments = () => {
       <div className="payments-header">
         <div>
           <h1>Payments</h1>
-          <p>View and manage online payment transactions.</p>
+          <p>Manage bank transfers and payment transactions.</p>
         </div>
 
         <button
@@ -126,21 +197,24 @@ const Payments = () => {
             )}
           </h2>
         </div>
+
+        <div className="payments-summary-card">
+          <span>Pending Transfers</span>
+          <h2>{summary.pendingPayments || 0}</h2>
+        </div>
       </div>
 
       <div className="payments-toolbar">
         <input
           type="text"
-          placeholder="Search customer, order or Stripe ID..."
+          placeholder="Search customer, order or transfer reference..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
       {error && (
-        <div className="payments-error">
-          {error}
-        </div>
+        <div className="payments-error">{error}</div>
       )}
 
       {loading ? (
@@ -157,87 +231,133 @@ const Payments = () => {
                 <th>Amount</th>
                 <th>Method</th>
                 <th>Status</th>
+                <th>Reference / Receipt</th>
                 <th>Date</th>
-                <th>Stripe Details</th>
+                <th>Actions</th>
               </tr>
             </thead>
 
             <tbody>
-              {filteredPayments.map((payment) => (
-                <tr key={payment.paymentId}>
-                  <td>
-                    <strong>
-                      {payment.orderNumber || `Order #${payment.orderId}`}
-                    </strong>
-                    <small>Payment #{payment.paymentId}</small>
-                  </td>
+              {filteredPayments.map((payment) => {
+                const status = String(
+                  payment.paymentStatus || payment.status || "pending"
+                ).toLowerCase();
 
-                  <td>
-                    <strong>{payment.customerName || "—"}</strong>
-                    <small>{payment.email || "—"}</small>
-                    <small>{payment.phone || "—"}</small>
-                  </td>
+                const isBankTransfer =
+                  String(payment.paymentMethod || "").toLowerCase() ===
+                  "bank_transfer";
 
-                  <td className="payments-amount">
-                    {formatAmount(payment.amount, payment.currency)}
-                  </td>
+                const isPending = status === "pending";
 
-                  <td>
-                    {payment.paymentMethod || "Card"}
-                  </td>
+                return (
+                  <tr key={payment.paymentId}>
+                    <td>
+                      <strong>
+                        {payment.orderNumber ||
+                          `Order #${payment.orderId}`}
+                      </strong>
+                      <small>Payment #{payment.paymentId}</small>
+                    </td>
 
-                  <td>
-                    <span className="payments-status">
-                      {payment.paymentStatus || "Paid"}
-                    </span>
-                  </td>
+                    <td>
+                      <strong>{payment.customerName || "—"}</strong>
+                      <small>{payment.email || "—"}</small>
+                      <small>{payment.phone || "—"}</small>
+                    </td>
 
-                  <td>{formatDate(payment.paymentDate)}</td>
+                    <td className="payments-amount">
+                      {formatAmount(payment.amount, payment.currency)}
+                    </td>
 
-                  <td className="payments-stripe-details">
-                    <div>
-                      <small>Session ID</small>
-                      <span>
-                        {payment.stripeSessionId || "—"}
+                    <td>
+                      {isBankTransfer ? "Bank Transfer" : payment.paymentMethod || "Card"}
+                    </td>
+
+                    <td>
+                      <span className={`payments-status payments-status--${status}`}>
+                        {status.toUpperCase()}
                       </span>
-                      {payment.stripeSessionId && (
-                        <button
-                          onClick={() =>
-                            copyToClipboard(payment.stripeSessionId)
-                          }
-                        >
-                          Copy
-                        </button>
-                      )}
-                    </div>
+                    </td>
 
-                    <div>
-                      <small>Payment Intent</small>
-                      <span>
-                        {payment.stripePaymentIntentId || "—"}
-                      </span>
-                      {payment.stripePaymentIntentId && (
-                        <button
-                          onClick={() =>
-                            copyToClipboard(
-                              payment.stripePaymentIntentId
-                            )
-                          }
-                        >
-                          Copy
-                        </button>
+                    <td>
+                      {isBankTransfer ? (
+                        <>
+                          <small>
+                            Reference:{" "}
+                            {payment.bankTransferReference || "—"}
+                          </small>
+
+                          {payment.bankTransferReference && (
+                            <button
+                              type="button"
+                              onClick={() =>
+                                copyToClipboard(payment.bankTransferReference)
+                              }
+                            >
+                              Copy Reference
+                            </button>
+                          )}
+
+                          {payment.receiptPath && (
+                            <button
+                              type="button"
+                              onClick={() => handleReceipt(payment)}
+                            >
+                              Download Receipt
+                            </button>
+                          )}
+                        </>
+                      ) : (
+                        <div className="payments-stripe-details">
+                          <small>
+                            Session: {payment.stripeSessionId || "—"}
+                          </small>
+                          <small>
+                            Intent: {payment.stripePaymentIntentId || "—"}
+                          </small>
+                        </div>
                       )}
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+
+                    <td>{formatDate(payment.paymentDate)}</td>
+
+                    <td>
+                      {isBankTransfer && isPending ? (
+                        <div className="payments-actions">
+                          <button
+                            type="button"
+                            className="payments-approve-btn"
+                            disabled={actionLoading === payment.paymentId}
+                            onClick={() => handleApprove(payment)}
+                          >
+                            {actionLoading === payment.paymentId
+                              ? "Please wait..."
+                              : "Approve"}
+                          </button>
+
+                          <button
+                            type="button"
+                            className="payments-reject-btn"
+                            disabled={actionLoading === payment.paymentId}
+                            onClick={() => handleReject(payment)}
+                          >
+                            Reject
+                          </button>
+                        </div>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
 
               {filteredPayments.length === 0 && (
                 <tr>
-                  <td colSpan="7" className="payments-empty">
+                  <td colSpan="8" className="payments-empty">
                     {search
                       ? "No payments match your search."
-                      : "No paid transactions found."}
+                      : "No payment records found."}
                   </td>
                 </tr>
               )}

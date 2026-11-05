@@ -1,13 +1,17 @@
 
-const stripe = require('../config/stripe');
 const { pool } = require('../config/db');
+const fs = require('fs');
+const path = require('path');
 
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+const RECEIPT_DIR = path.resolve(
+  __dirname,
+  '../../private_uploads/payment_receipts'
+);
 
-const createCheckoutSession = async (req, res) => {
+// Customer submits a bank transfer order
+const createBankTransferOrder = async (req, res) => {
   let connection;
-  let orderId;
-  let paymentId;
+  let receiptFilename = req.file?.filename;
 
   try {
     const {
@@ -16,8 +20,22 @@ const createCheckoutSession = async (req, res) => {
       phone,
       address,
       city,
-      items,
+      items: rawItems,
+      bankTransferReference,
     } = req.body;
+
+    const items =
+      typeof rawItems === 'string'
+        ? JSON.parse(rawItems)
+        : rawItems;
+        const phoneDigits = String(phone || '').replace(/\D/g, '');
+
+if (!/^\d{7,12}$/.test(phoneDigits)) {
+  return res.status(400).json({
+    success: false,
+    message: 'Please enter a valid phone number.',
+  });
+}
 
     if (
       !customerName?.trim() ||
@@ -32,17 +50,24 @@ const createCheckoutSession = async (req, res) => {
       });
     }
 
-    if (!Array.isArray(items) || items.length === 0) {
+    if (!bankTransferReference?.trim()) {
       return res.status(400).json({
         success: false,
-        message: 'Your cart is empty.',
+        message: 'Please provide your bank transfer reference.',
       });
     }
 
-    if (items.length > 50) {
+    if (!req.file) {
       return res.status(400).json({
         success: false,
-        message: 'Too many different items in one order.',
+        message: 'Please upload your payment receipt.',
+      });
+    }
+
+    if (!Array.isArray(items) || items.length === 0 || items.length > 50) {
+      return res.status(400).json({
+        success: false,
+        message: 'Your cart is empty or contains too many items.',
       });
     }
 
@@ -68,18 +93,22 @@ const createCheckoutSession = async (req, res) => {
         throw new Error('An item in your cart is invalid.');
       }
 
-      const table = itemType === 'product' ? 'products' : 'accessories';
+      const table =
+        itemType === 'product' ? 'products' : 'accessories';
 
       const [rows] = await connection.execute(
         `SELECT id, name, price, in_stock
          FROM ${table}
-         WHERE id = ? FOR UPDATE`,
+         WHERE id = ?
+         FOR UPDATE`,
         [itemId]
       );
 
-     if (!rows.length || Number(rows[0].in_stock) < quantity) {
-  throw new Error(`An item is unavailable or has insufficient stock: ${itemId}`);
-}
+      if (!rows.length || Number(rows[0].in_stock) < quantity) {
+        throw new Error(
+          `An item is unavailable or has insufficient stock: ${itemId}`
+        );
+      }
 
       const dbItem = rows[0];
       const price = Number(dbItem.price);
@@ -88,8 +117,7 @@ const createCheckoutSession = async (req, res) => {
         throw new Error('An item has an invalid price.');
       }
 
-      const lineTotal = Math.round(price * 100) * quantity;
-      totalAmount += lineTotal;
+      totalAmount += Math.round(price * 100) * quantity;
 
       verifiedItems.push({
         id: itemId,
@@ -100,15 +128,16 @@ const createCheckoutSession = async (req, res) => {
       });
     }
 
-    if (totalAmount < 50) {
-      throw new Error('The minimum Stripe payment is £0.50.');
+    if (totalAmount <= 0) {
+      throw new Error('Order total must be greater than zero.');
     }
+
+    const totalInPounds = (totalAmount / 100).toFixed(2);
 
     const orderNumber = `MTECH-${Date.now()}-${Math.floor(
       1000 + Math.random() * 9000
     )}`;
 
-    const totalInPounds = totalAmount / 100;
     const notes = `Delivery Address: ${address.trim()}, ${city.trim()}`;
 
     const [orderResult] = await connection.execute(
@@ -120,13 +149,13 @@ const createCheckoutSession = async (req, res) => {
         orderNumber,
         customerName.trim(),
         email.trim(),
-        phone.trim(),
-        totalInPounds.toFixed(2),
+        phoneDigits,
+        totalInPounds,
         notes,
       ]
     );
 
-    orderId = orderResult.insertId;
+    const orderId = orderResult.insertId;
 
     for (const item of verifiedItems) {
       await connection.execute(
@@ -147,46 +176,27 @@ const createCheckoutSession = async (req, res) => {
     }
 
     const [paymentResult] = await connection.execute(
-      `INSERT INTO payments (order_id, amount, currency, status, payment_method)
-       VALUES (?, ?, 'gbp', 'pending', 'card')`,
-      [orderId, totalInPounds.toFixed(2)]
+      `INSERT INTO payments
+       (order_id, amount, currency, status, payment_method,
+        bank_transfer_reference, receipt_path)
+       VALUES (?, ?, 'gbp', 'pending', 'bank_transfer', ?, ?)`,
+      [
+        orderId,
+        totalInPounds,
+        bankTransferReference.trim(),
+        receiptFilename,
+      ]
     );
-
-    paymentId = paymentResult.insertId;
 
     await connection.commit();
 
-    const session = await stripe.checkout.sessions.create({
-  mode: 'payment',
-  customer_email: email.trim(),
-      line_items: verifiedItems.map((item) => ({
-        price_data: {
-          currency: 'gbp',
-          product_data: {
-            name: item.name,
-          },
-          unit_amount: Math.round(item.price * 100),
-        },
-        quantity: item.quantity,
-      })),
-      metadata: {
-        orderId: String(orderId),
-        paymentId: String(paymentId),
-        orderNumber,
-      },
-      success_url: `${FRONTEND_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${FRONTEND_URL}/checkout?payment=cancelled`,
-    });
-
-    await connection.execute(
-      `UPDATE payments SET stripe_session_id = ? WHERE id = ?`,
-      [session.id, paymentId]
-    );
-
-    return res.json({
+    return res.status(201).json({
       success: true,
-      url: session.url,
+      message: 'Order submitted. Your bank transfer is awaiting verification.',
       orderNumber,
+      orderId,
+      paymentId: paymentResult.insertId,
+      paymentStatus: 'pending',
     });
   } catch (error) {
     if (connection) {
@@ -195,11 +205,17 @@ const createCheckoutSession = async (req, res) => {
       } catch {}
     }
 
-    console.error('[Stripe checkout]', error.message);
+    if (receiptFilename) {
+      try {
+        fs.unlinkSync(path.join(RECEIPT_DIR, receiptFilename));
+      } catch {}
+    }
+
+    console.error('[Bank transfer order]', error.message);
 
     return res.status(400).json({
       success: false,
-      message: error.message || 'Unable to start checkout.',
+      message: error.message || 'Unable to submit your order.',
     });
   } finally {
     if (connection) connection.release();
@@ -207,96 +223,7 @@ const createCheckoutSession = async (req, res) => {
 };
 
 
-const verifyCheckoutSession = async (req, res) => {
-  try {
-    const sessionId = req.query.session_id;
-
-    if (
-      typeof sessionId !== 'string' ||
-      !sessionId.startsWith('cs_test_')
-    ) {
-      return res.status(400).json({
-        success: false,
-        message: 'Invalid test checkout session ID.',
-      });
-    }
-
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
-
-    if (session.payment_status !== 'paid') {
-      return res.json({
-        success: true,
-        paid: false,
-        message: 'Payment has not been confirmed yet.',
-      });
-    }
-
-    const orderId = Number(session.metadata?.orderId);
-    const paymentId = Number(session.metadata?.paymentId);
-
-    if (!orderId || !paymentId) {
-      return res.status(400).json({
-        success: false,
-        message: 'Payment metadata is missing.',
-      });
-    }
-
-    const [rows] = await pool.execute(
-      `SELECT p.id, p.order_id, p.stripe_session_id, p.status,
-              o.order_number
-       FROM payments p
-       INNER JOIN orders o ON o.id = p.order_id
-       WHERE p.id = ? AND p.order_id = ?`,
-      [paymentId, orderId]
-    );
-
-    if (
-      !rows.length ||
-      rows[0].stripe_session_id !== session.id
-    ) {
-      return res.status(404).json({
-        success: false,
-        message: 'Payment record could not be verified.',
-      });
-    }
-
-    await pool.execute(
-      `UPDATE payments
-       SET status = 'paid',
-           stripe_payment_intent_id = ?
-       WHERE id = ? AND order_id = ?`,
-      [
-        typeof session.payment_intent === 'string'
-          ? session.payment_intent
-          : null,
-        paymentId,
-        orderId,
-      ]
-    );
-
-    await pool.execute(
-      `UPDATE orders
-       SET payment_status = 'paid'
-       WHERE id = ?`,
-      [orderId]
-    );
-
-    return res.json({
-      success: true,
-      paid: true,
-      orderNumber: rows[0].order_number,
-    });
-  } catch (error) {
-    console.error('[Payment verification]', error.message);
-
-    return res.status(500).json({
-      success: false,
-      message: 'Unable to verify payment right now.',
-    });
-  }
-};
-
-
+// Admin: view all payments, including pending bank transfers
 const getAdminPayments = async (req, res) => {
   try {
     const [payments] = await pool.query(`
@@ -311,6 +238,8 @@ const getAdminPayments = async (req, res) => {
         p.currency,
         p.status AS paymentStatus,
         p.payment_method AS paymentMethod,
+        p.bank_transfer_reference AS bankTransferReference,
+        p.receipt_path AS receiptPath,
         p.stripe_session_id AS stripeSessionId,
         p.stripe_payment_intent_id AS stripePaymentIntentId,
         p.created_at AS paymentDate,
@@ -318,30 +247,32 @@ const getAdminPayments = async (req, res) => {
         o.notes
       FROM payments p
       INNER JOIN orders o ON o.id = p.order_id
-      WHERE p.status = 'paid'
       ORDER BY p.created_at DESC
     `);
 
     const [[summary]] = await pool.query(`
       SELECT
         COUNT(*) AS totalPayments,
-        COALESCE(SUM(amount), 0) AS totalRevenue
+        COALESCE(SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END), 0)
+          AS totalRevenue,
+        SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END)
+          AS pendingPayments
       FROM payments
-      WHERE status = 'paid'
     `);
 
-    res.json({
+    return res.json({
       success: true,
       data: payments,
       summary: {
         totalPayments: Number(summary.totalPayments || 0),
         totalRevenue: Number(summary.totalRevenue || 0),
+        pendingPayments: Number(summary.pendingPayments || 0),
       },
     });
   } catch (error) {
     console.error('[Admin payments]', error.message);
 
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: 'Unable to fetch payment records.',
     });
@@ -349,10 +280,208 @@ const getAdminPayments = async (req, res) => {
 };
 
 
-module.exports = {
-  createCheckoutSession,
-  verifyCheckoutSession,
-   getAdminPayments,
+// Admin: approve a bank transfer after checking actual bank credit
+const approveBankTransfer = async (req, res) => {
+  let connection;
+
+  try {
+    const paymentId = Number(req.params.id);
+
+    if (!Number.isSafeInteger(paymentId) || paymentId < 1) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid payment ID.',
+      });
+    }
+
+    connection = await pool.getConnection();
+    await connection.beginTransaction();
+
+    const [rows] = await connection.execute(
+      `SELECT id, order_id, status, payment_method
+       FROM payments
+       WHERE id = ?
+       FOR UPDATE`,
+      [paymentId]
+    );
+
+    if (
+      !rows.length ||
+      rows[0].payment_method !== 'bank_transfer' ||
+      rows[0].status !== 'pending'
+    ) {
+      await connection.rollback();
+
+      return res.status(409).json({
+        success: false,
+        message: 'Payment not found or is no longer pending.',
+      });
+    }
+
+    await connection.execute(
+      `UPDATE payments
+       SET status = 'paid'
+       WHERE id = ? AND status = 'pending'`,
+      [paymentId]
+    );
+
+    await connection.execute(
+      `UPDATE orders
+       SET payment_status = 'paid'
+       WHERE id = ?`,
+      [rows[0].order_id]
+    );
+
+    await connection.commit();
+
+    return res.json({
+      success: true,
+      message: 'Bank transfer approved successfully.',
+    });
+  } catch (error) {
+    if (connection) {
+      try {
+        await connection.rollback();
+      } catch {}
+    }
+
+    console.error('[Approve bank transfer]', error.message);
+
+    return res.status(500).json({
+      success: false,
+      message: 'Unable to approve payment.',
+    });
+  } finally {
+    if (connection) connection.release();
+  }
 };
 
 
+// Admin: reject a bank transfer
+const rejectBankTransfer = async (req, res) => {
+  let connection;
+
+  try {
+    const paymentId = Number(req.params.id);
+
+    if (!Number.isSafeInteger(paymentId) || paymentId < 1) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid payment ID.',
+      });
+    }
+
+    connection = await pool.getConnection();
+    await connection.beginTransaction();
+
+    const [rows] = await connection.execute(
+      `SELECT id, order_id, status, payment_method
+       FROM payments
+       WHERE id = ?
+       FOR UPDATE`,
+      [paymentId]
+    );
+
+    if (
+      !rows.length ||
+      rows[0].payment_method !== 'bank_transfer' ||
+      rows[0].status !== 'pending'
+    ) {
+      await connection.rollback();
+
+      return res.status(409).json({
+        success: false,
+        message: 'Payment not found or is no longer pending.',
+      });
+    }
+
+    await connection.execute(
+      `UPDATE payments SET status = 'failed' WHERE id = ?`,
+      [paymentId]
+    );
+
+    await connection.execute(
+      `UPDATE orders SET payment_status = 'failed' WHERE id = ?`,
+      [rows[0].order_id]
+    );
+
+    await connection.commit();
+
+    return res.json({
+      success: true,
+      message: 'Bank transfer rejected.',
+    });
+  } catch (error) {
+    if (connection) {
+      try {
+        await connection.rollback();
+      } catch {}
+    }
+
+    console.error('[Reject bank transfer]', error.message);
+
+    return res.status(500).json({
+      success: false,
+      message: 'Unable to reject payment.',
+    });
+  } finally {
+    if (connection) connection.release();
+  }
+};
+
+
+// Admin-only private receipt access
+const getPaymentReceipt = async (req, res) => {
+  try {
+    const paymentId = Number(req.params.id);
+
+    if (!Number.isSafeInteger(paymentId) || paymentId < 1) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid payment ID.',
+      });
+    }
+
+    const [rows] = await pool.execute(
+      `SELECT receipt_path
+       FROM payments
+       WHERE id = ? AND payment_method = 'bank_transfer'`,
+      [paymentId]
+    );
+
+    if (!rows.length || !rows[0].receipt_path) {
+      return res.status(404).json({
+        success: false,
+        message: 'Receipt not found.',
+      });
+    }
+
+    const filename = path.basename(rows[0].receipt_path);
+    const receiptFile = path.join(RECEIPT_DIR, filename);
+
+    if (!fs.existsSync(receiptFile)) {
+      return res.status(404).json({
+        success: false,
+        message: 'Receipt file is missing.',
+      });
+    }
+
+    return res.sendFile(receiptFile);
+  } catch (error) {
+    console.error('[Payment receipt]', error.message);
+
+    return res.status(500).json({
+      success: false,
+      message: 'Unable to open receipt.',
+    });
+  }
+};
+
+
+module.exports = {
+  createBankTransferOrder,
+  getAdminPayments,
+  approveBankTransfer,
+  rejectBankTransfer,
+  getPaymentReceipt,
+};

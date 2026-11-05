@@ -23,6 +23,13 @@ export const verifyStripeCheckoutSession = (sessionId) =>
   api.get('/payments/verify-checkout-session', {
     params: { session_id: sessionId },
   });
+  export const createBankTransferOrder = (formData) =>
+  api.post('/payments/bank-transfer', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  
 
 
 export default api;

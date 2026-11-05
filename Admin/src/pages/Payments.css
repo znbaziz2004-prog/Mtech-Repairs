@@ -401,3 +401,94 @@
     max-width: 100%;
   }
 }
+
+/* =========================================================
+   BANK TRANSFER ACTIONS
+========================================================= */
+
+.payments-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 90px;
+}
+
+.payments-actions button {
+  padding: 8px 11px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.payments-approve-btn {
+  border: 1px solid #174f35;
+  background: #174f35;
+  color: #ffffff;
+}
+
+.payments-approve-btn:hover {
+  background: #216c48;
+}
+
+.payments-reject-btn {
+  border: 1px solid #e5baba;
+  background: #fff5f5;
+  color: #b43c3c;
+}
+
+.payments-reject-btn:hover {
+  background: #ffe5e5;
+}
+
+.payments-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* RECEIPT AND REFERENCE BUTTONS */
+
+.payments-table td button {
+  display: inline-block;
+  margin: 5px 5px 5px 0;
+  padding: 6px 9px;
+  border: 1px solid #e8dfb2;
+  border-radius: 6px;
+  background: #fffdf3;
+  color: #927300;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.payments-table td button:hover {
+  background: #fff4bd;
+}
+
+/* PAYMENT STATUS COLORS */
+
+.payments-status--pending {
+  border-color: #e8dfb2;
+  background: #fff9df;
+  color: #927300;
+}
+
+.payments-status--paid {
+  border-color: #b9dfc7;
+  background: #effaf2;
+  color: #247342;
+}
+
+.payments-status--failed {
+  border-color: #f0caca;
+  background: #fff1f1;
+  color: #b43c3c;
+}
+
+.payments-status--refunded {
+  border-color: #cbd7ed;
+  background: #f1f5fc;
+  color: #45628d;
+}
+

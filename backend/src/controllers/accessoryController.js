@@ -113,7 +113,7 @@ const createAccessory = asyncHandler(async (req, res) => {
       category,
       Number(price),
       image || '',
-      inStock !== undefined ? Boolean(inStock) : true,
+      inStock !== undefined ? Number(inStock) : 0,
     ]
   );
 
@@ -163,9 +163,9 @@ const updateAccessory = asyncHandler(async (req, res) => {
     if (req.body[field] !== undefined) {
       updates.push(`${column} = ?`);
 
-      if (field === 'inStock') {
-        values.push(Boolean(req.body[field]));
-      } else if (field === 'price') {
+     if (field === 'inStock') {
+  values.push(Number(req.body[field]));
+} else if (field === 'price') {
         values.push(Number(req.body[field]));
       } else {
         values.push(req.body[field]);

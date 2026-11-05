@@ -1,20 +1,29 @@
 
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
 const {
-  createCheckoutSession,
-  verifyCheckoutSession,
+  createBankTransferOrder,
   getAdminPayments,
-} = require("../controllers/paymentController");
+  approveBankTransfer,
+  rejectBankTransfer,
+  getPaymentReceipt,
+} = require('../controllers/paymentController');
 
-const adminAuth = require("../middleware/adminAuth");
+const adminAuth = require('../middleware/adminAuth');
+const uploadReceipt = require('../middleware/receiptUpload');
 
-// Stripe checkout routes
-router.post("/create-checkout-session", createCheckoutSession);
-router.get("/verify-checkout-session", verifyCheckoutSession);
+// Customer bank transfer submission
+router.post(
+  '/bank-transfer',
+  uploadReceipt.single('receipt'),
+  createBankTransferOrder
+);
 
-// Admin-only payments route
-router.get("/admin", adminAuth, getAdminPayments);
+// Admin-only routes
+router.get('/admin', adminAuth, getAdminPayments);
+router.get('/admin/:id/receipt', adminAuth, getPaymentReceipt);
+router.patch('/admin/:id/approve', adminAuth, approveBankTransfer);
+router.patch('/admin/:id/reject', adminAuth, rejectBankTransfer);
 
 module.exports = router;
