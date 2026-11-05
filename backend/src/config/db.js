@@ -21,7 +21,7 @@ const pool = mysql.createPool({
           ca: fs.readFileSync(
             path.resolve(
   __dirname,
-  '../certs/isrgrootx1.pem'
+  '../../certs/isrgrootx1.pem'
 ),
             'utf8'
           ),
