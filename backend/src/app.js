@@ -20,7 +20,6 @@ const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
-const { handleStripeWebhook } = require('./controllers/stripeWebhookController');
 
 
 const app = express();
@@ -68,11 +67,7 @@ app.use(
   })
 );
 
-app.post(
-  '/api/payments/webhook',
-  express.raw({ type: 'application/json' }),
-  handleStripeWebhook
-);
+
 
 
 app.use(express.json());
