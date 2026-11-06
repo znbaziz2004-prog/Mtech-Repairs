@@ -1,31 +1,57 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-// Sets the page <title> and meta description for basic per-page SEO, without
-// pulling in a routing/head-management dependency. Restores the previous
-// values on unmount so navigating between pages doesn't leave stale tags.
+const SITE = 'https://www.mtechrepairs.co.uk';
+
+// Sets <title>, meta description and canonical URL per page.
+// Restores previous values on unmount so navigation doesn't leave stale tags.
 export default function useDocumentMeta(title, description) {
+  const { pathname } = useLocation();
+
   useEffect(() => {
+    // Title
     const prevTitle = document.title;
     if (title) document.title = title;
 
+    // Description
     let metaTag = document.querySelector('meta[name="description"]');
-    let created = false;
+    let metaCreated = false;
     if (!metaTag) {
       metaTag = document.createElement('meta');
       metaTag.setAttribute('name', 'description');
       document.head.appendChild(metaTag);
-      created = true;
+      metaCreated = true;
     }
     const prevDescription = metaTag.getAttribute('content');
     if (description) metaTag.setAttribute('content', description);
 
+    // Canonical
+    const path = pathname === '/' ? '/' : pathname.replace(/\/$/, '');
+    let linkTag = document.querySelector('link[rel="canonical"]');
+    let linkCreated = false;
+    if (!linkTag) {
+      linkTag = document.createElement('link');
+      linkTag.setAttribute('rel', 'canonical');
+      document.head.appendChild(linkTag);
+      linkCreated = true;
+    }
+    const prevCanonical = linkTag.getAttribute('href');
+    linkTag.setAttribute('href', SITE + path);
+
     return () => {
       document.title = prevTitle;
-      if (created) {
+
+      if (metaCreated) {
         metaTag.remove();
       } else if (prevDescription !== null) {
         metaTag.setAttribute('content', prevDescription);
       }
+
+      if (linkCreated) {
+        linkTag.remove();
+      } else if (prevCanonical !== null) {
+        linkTag.setAttribute('href', prevCanonical);
+      }
     };
-  }, [title, description]);
+  }, [title, description, pathname]);
 }

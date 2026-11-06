@@ -24,6 +24,7 @@ import ProductDetails from './pages/ProductDetails.jsx';
 import Checkout from './pages/Checkout.jsx';
 import PaymentSuccess from './pages/PaymentSuccess';
 
+
 import { CartProvider } from './components/CartContext';
 
 function ScrollToTop() {
@@ -44,7 +45,9 @@ function PageTransition({ children }) {
       {children}
     </div>
   );
+  
 }
+
 
 export default function App() {
   useEffect(() => {
@@ -79,6 +82,7 @@ export default function App() {
             <Route path="/buy-sell/:id" element={<ProductDetails />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
+            
           </Routes>
         </PageTransition>
       </main>
