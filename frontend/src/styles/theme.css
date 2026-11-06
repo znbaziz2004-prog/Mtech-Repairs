@@ -291,3 +291,27 @@ body::before {
   border-color: var(--gold-deep);
   color: var(--gold-deep);
 }
+html, body {
+  overflow-x: hidden;
+}
+
+img, video, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 720px) {
+  .container {
+    padding: 0 16px;
+  }
+  .section {
+    padding: 48px 0;
+  }
+  .section-tight {
+    padding: 40px 0;
+  }
+  .btn {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
