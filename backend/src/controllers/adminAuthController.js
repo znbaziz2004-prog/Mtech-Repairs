@@ -96,14 +96,18 @@ exports.loginAdmin = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Admin Login Error:", error);
+    console.error("Admin Login Error Details:", {
+      message: error.message,
+      code: error.code,
+      sqlMessage: error.sqlMessage,
+      stack: error.stack,
+    });
 
     return res.status(500).json({
       success: false,
       message: "Server error during admin login.",
     });
-  }
-};
+  } }
 
 // ======================================================
 // GET ADMIN PROFILE
