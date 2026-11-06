@@ -36,39 +36,40 @@ app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
    CORS
 ========================================================= */
 
+
+
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
-
   'https://mtechrepairs.co.uk',
   'https://www.mtechrepairs.co.uk',
   'https://admin.mtechrepairs.co.uk',
 ];
 
-app.use(
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin) {
+      return callback(null, true);
+    }
 
-  cors({
-    origin: function (origin, callback) {
-      // Allow requests without an origin
-      // such as Postman/server-to-server requests
-      if (!origin) {
-        return callback(null, true);
-      }
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
 
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
+    console.error('CORS blocked origin:', origin);
+    return callback(new Error(`CORS blocked origin: ${origin}`));
+  },
 
-      return callback(
-        new Error(`CORS blocked origin: ${origin}`)
-      );
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  })
-);
-app.options(/.*/, cors());
+  credentials: true,
+
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
+
+app.options('*', cors(corsOptions));
 
 
 
